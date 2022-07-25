@@ -39,16 +39,19 @@ if (player_1_info === `raticate`) {
     // console.log(`testing if this works ${raticate_json}`);
     let muk_json = JSON.stringify(muk);
     Cookies.set(`enemy_chosen`, muk_json);
+    window.addEventListener(`load`, selected_enemy);
 } else if (player_1_info === `magikarp`) {
     let magikarp_json = JSON.stringify(magikarp);
     Cookies.set(`current_user`, magikarp_json);
     let muk_json = JSON.stringify(muk);
     Cookies.set(`enemy_chosen`, muk_json);
+    window.addEventListener(`load`, selected_enemy);
 } else if (player_1_info === `blastoise`) {
     let blastoise_json = JSON.stringify(blastoise);
     Cookies.set(`current_user`, blastoise_json);
     let muk_json = JSON.stringify(muk);
     Cookies.set(`enemy_chosen`, muk_json);
+    window.addEventListener(`load`, selected_enemy);
 }
 /*
 Cookies.set(`enemy_chosen`, blastoise);
@@ -61,18 +64,25 @@ function set_current_user (details) {
 }
 */
 
-// displays enemy info and gif
+//function for displays enemy info and gif
+function selected_enemy() {
 let enemy_display = document.querySelector(`#enemy_pokemon`);
 enemy_display.insertAdjacentHTML(`afterbegin`, `<h1>Battle Begin</h1>
 <h1>Enemy: MuK!!!</h1>
 <img src = "https://projectpokemon.org/images/shiny-sprite/muk.gif" alt = "pokemon">`);
+}
+
+// getting enemy key value
+// let enemy_pokemon_json = Cookies.get(`enemy_chosen`);
+// let enemy_pokemon = JSON.parse(`enemy_pokemon_json`);
 
 // getting player selected pokemon key value
 let current_pokemon_json = Cookies.get(`current_user`);
-let current_pokemon = JSON.parse(current_pokemon_json);
+let current_pokemon = JSON.parse(`current_pokemon_json`);
 // console.log(current_pokemon[`name`]);
 // displays player info and gif
+
 let player_display = document.querySelector(`#chosen_player_pokemon`);
-player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${current_pokemon[`name`]}</h1>
+player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${enemy_pokemon[`name`]}</h1>
 <h1>Enemy: MuK!!!</h1>
-<img src = "${current_pokemon[`image_url`]} " alt = "pokemon">`);
+<img src = "${current_pokemon[`image_url`]} " alt = "pokemon">`); 
