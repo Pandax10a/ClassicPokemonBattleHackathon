@@ -8,14 +8,30 @@
 </head>
 <body>
     <div id = "enemy_pokemon">
-        <h1>Battle Begin</h1>
-        <h1>Enemy: MuK!!!</h1>
+        <!-- <h1>Battle Begin</h1>     moved to js--> 
+        <!-- <h1>Enemy: MuK!!!</h1>      moved to js-->
+        <!-- <img src = "https://projectpokemon.org/images/shiny-sprite/muk.gif" alt = "pokemon">    moved to js-->
     </div>
     <div id = "chosen_player_pokemon">
 
     </div>
-    <img src = "https://projectpokemon.org/images/shiny-sprite/muk.gif" alt = "pokemon">
+    
     <h1></h1>
+    <h3>Victory</h3>
+    <audio controls loop>
+        <source src = "lucca_test.mp3">
+        
+    </audio>
+    <h3>Battle</h3>
+    <audio controls loop>
+        <source src = "Secret_Boss_Battle_SoundtrackVer.mp3">
+    </audio>
+    <h3>Fail</h3>
+    <audio controls loop>
+        <source src = "goodfriends_preview.mp3">
+        
+    </audio>
+
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="battle.js"></script>
 </body>
