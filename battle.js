@@ -67,8 +67,12 @@ enemy_display.insertAdjacentHTML(`afterbegin`, `<h1>Battle Begin</h1>
 <h1>Enemy: MuK!!!</h1>
 <img src = "https://projectpokemon.org/images/shiny-sprite/muk.gif" alt = "pokemon">`);
 
+// getting player selected pokemon key value
+let current_pokemon_json = Cookies.get(`current_user`);
+let current_pokemon = JSON.parse(current_pokemon_json);
+// console.log(current_pokemon[`name`]);
 // displays player info and gif
 let player_display = document.querySelector(`#chosen_player_pokemon`);
-player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${</h1>
+player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${current_pokemon[`name`]}</h1>
 <h1>Enemy: MuK!!!</h1>
-<img src = "https://projectpokemon.org/images/shiny-sprite/muk.gif" alt = "pokemon">`);
+<img src = "${current_pokemon[`image_url`]} " alt = "pokemon">`);
