@@ -120,24 +120,84 @@ player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${enemie
 
 // setting the type of attack in a button based on data in object
 function set_button_att (a) {
-    document.getElementById(`gotta_catch_em_all`).insertAdjacentHTML(`afterbegin`, `<button id = 'attack_1'>${a[`Att`][0]}</button> <button id = 'attack_2'>${a[`Att`][1]}</button> <button id = 'attack_3'>${a[`Att`][2]}</button>`);
+    document.getElementById(`gotta_catch_em_all`).insertAdjacentHTML(`afterbegin`, `<button id = "attack_1">${a[`Att`][0]}</button> <button id = "attack_2">${a[`Att`][1]}</button> <button id = "attack_3">${a[`Att`][2]}</button>`);
 }
 
+// the 3 attack boxes
 let battle_box_1 = document.getElementById(`attack_1`);
 battle_box_1.addEventListener(`click`, quick_attack);
 
-function quick_attack(trueDmg) {
+let battle_box_2 = document.getElementById(`attack_2`);
+battle_box_2.addEventListener(`click`, tackle);
+
+let battle_box_3 = document.getElementById(`attack_3`);
+battle_box_3.addEventListener(`click`, tail_whip);
+
+
+// the following 3 function will be the damage calculation.  i had the battle log wipe display so it displays it every time
+// it is clicked instead
+function quick_attack() {
     let temp_boss_hp = Cookies.get(`computer_hp`);
-    temp_boss_hp -= 3; // quick_attack damage value
+    temp_boss_hp -= 3; // attack 1 damage value
     let my_temp_hp = Cookies.get(`my_hp`);
-    my_temp_hp -= 7;
+    my_temp_hp -= 7; // value of muk's damage, set it to one default value for now
     Cookies.set(`computer_hp`, temp_boss_hp);
     Cookies.set(`my_hp`, my_temp_hp)
    
+    if (temp_boss_hp > 0 && my_temp_hp > 0) {
+        let battle_log_display = document.querySelector(`#battle_log`)
+        battle_log_display[`innerHTML`] = ``;
+    battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}
+    <h1>My Hp: ${Cookies.get(`my_hp`)}`);
+        console.log(temp_boss_hp)
+       } else if (temp_boss_hp < 0) {
+        document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Victory, You won!!`;
+       } else if (my_temp_hp < 0) {
+        document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Go buy some Master Ball, you need it`;
+       }
+}
+
+function tackle() {
+    let temp_boss_hp = Cookies.get(`computer_hp`);
+    temp_boss_hp -= 15; // attack 2 damage value
+    let my_temp_hp = Cookies.get(`my_hp`);
+    my_temp_hp -= 7; // value of muk's damage, set it to one default value for now
+    Cookies.set(`computer_hp`, temp_boss_hp);
+    Cookies.set(`my_hp`, my_temp_hp)
+   
+    if (temp_boss_hp > 0 && my_temp_hp > 0) {
+        let battle_log_display = document.querySelector(`#battle_log`)
+        battle_log_display[`innerHTML`] = ``;
+    battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}
+    <h1>My Hp: ${Cookies.get(`my_hp`)}`);
+        console.log(temp_boss_hp)
+       } else if (temp_boss_hp < 0) {
+        document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Victory, You won!!`;
+       } else if (my_temp_hp < 0) {
+        document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Go buy some Master Ball, you need it`;
+       }
+}
+
+function tail_whip() {
+    let temp_boss_hp = Cookies.get(`computer_hp`);
+    temp_boss_hp -= 11; // attack 3 damage value
+    let my_temp_hp = Cookies.get(`my_hp`);
+    my_temp_hp -= 7; // value of muk's damage, set it to one default value for now
+    Cookies.set(`computer_hp`, temp_boss_hp);
+    Cookies.set(`my_hp`, my_temp_hp)
+   if (temp_boss_hp > 0 && my_temp_hp > 0) {
     let battle_log_display = document.querySelector(`#battle_log`)
     battle_log_display[`innerHTML`] = ``;
 battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}
 <h1>My Hp: ${Cookies.get(`my_hp`)}`);
-    console.log(temp_boss_hp)
+    console.log(temp_boss_hp) // for my reference to see boss hp going down on click
+   } else if (temp_boss_hp < 0) {
+    document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Victory, You won!!`;
+   } else if (my_temp_hp < 0) {
+    document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Go buy some Master Ball, you need it`;
+   }
 }
 
+
+/* the background music is from fan made chrono trigger, i figure games needs music but chrome disabled autoplay
+ so now it is up to the player to click on the the music that suits them*/
