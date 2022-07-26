@@ -4,6 +4,7 @@ let enemies = {
     name: `muk`,
     image_url: `https://projectpokemon.org/images/shiny-sprite/muk.gif`,
     HP: 100,
+    Current_HP: 100,
     Att: [`Poison Jab`, `Gunk Shot`],  
 }
 
@@ -40,14 +41,16 @@ let player_1_info = Cookies.get(`player_1`);
 /* for each if conditional, it matches the selected from index page, to match the data held in battle.js. 
 it populates the battle page with enemy pokemon setup, the player selected pokemon, and the basic attacks using called
 functions, it also sets up the initial value for hp to cookies for both the computer and player   */
+
+
 if (player_1_info === `raticate`) {
     let raticate_json = JSON.stringify(raticate);
     Cookies.set(`current_user`, raticate_json);
     let enemies_json = JSON.stringify(enemies);
-    Cookies.set(`enemy_chosen`, enemies_json);
+    // Cookies.set(`enemy_chosen`, enemies_json);
     let starting_hp = raticate[`HP`];
     Cookies.set(`my_hp`, `${starting_hp}`);
-    let computer_starting_hp = enemies[`HP`];
+    let computer_starting_hp = enemies[`Current_HP`];
     Cookies.set(`computer_hp`, computer_starting_hp);
     window.addEventListener(`load`, selected_enemy);
     window.addEventListener(`load`, selected_player(raticate));
@@ -115,19 +118,26 @@ player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${enemie
 <img src = '${a[`image_url`]}'  alt = "pokemon">`);
 }
 
+// setting the type of attack in a button based on data in object
 function set_button_att (a) {
     document.getElementById(`gotta_catch_em_all`).insertAdjacentHTML(`afterbegin`, `<button id = 'attack_1'>${a[`Att`][0]}</button> <button id = 'attack_2'>${a[`Att`][1]}</button> <button id = 'attack_3'>${a[`Att`][2]}</button>`);
 }
 
 let battle_box_1 = document.getElementById(`attack_1`);
-battle_box_1.addEventListener(`click`, quick_attack(11))
+battle_box_1.addEventListener(`click`, quick_attack);
 
-function quick_attack (trueDmg) {
-let temp_boss_hp = Cookies.get(`computer_hp`);
-temp_boss_hp -= trueDmg;
-console.log(temp_boss_hp);
-Cookies.set(`computer_hp`, temp_boss_hp);
+function quick_attack(trueDmg) {
+    let temp_boss_hp = Cookies.get(`computer_hp`);
+    temp_boss_hp -= 3; // quick_attack damage value
+    let my_temp_hp = Cookies.get(`my_hp`);
+    my_temp_hp -= 7;
+    Cookies.set(`computer_hp`, temp_boss_hp);
+    Cookies.set(`my_hp`, my_temp_hp)
+   
+    let battle_log_display = document.querySelector(`#battle_log`)
+    battle_log_display[`innerHTML`] = ``;
+battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}
+<h1>My Hp: ${Cookies.get(`my_hp`)}`);
+    console.log(temp_boss_hp)
 }
 
-let battle_log_display = document.querySelector(`#battle_log`)
-battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}`);
