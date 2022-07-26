@@ -40,6 +40,7 @@ if (player_1_info === `raticate`) {
     Cookies.set(`enemy_chosen`, enemies_json);
     window.addEventListener(`load`, selected_enemy);
     window.addEventListener(`load`, selected_player(raticate));
+    window.addEventListener(`load`, set_button_att(raticate));
 } else if (player_1_info === `magikarp`) {
     let magikarp_json = JSON.stringify(magikarp);
     Cookies.set(`current_user`, magikarp_json);
@@ -47,6 +48,7 @@ if (player_1_info === `raticate`) {
     Cookies.set(`enemy_chosen`, enemies_json);
     window.addEventListener(`load`, selected_enemy);
     window.addEventListener(`load`, selected_player(magikarp));
+    window.addEventListener(`load`, set_button_att(magikarp));
 } else if (player_1_info === `blastoise`) {
     let blastoise_json = JSON.stringify(blastoise);
     Cookies.set(`current_user`, blastoise_json);
@@ -54,6 +56,7 @@ if (player_1_info === `raticate`) {
     Cookies.set(`enemy_chosen`, enemies_json);
     window.addEventListener(`load`, selected_enemy);
     window.addEventListener(`load`, selected_player(blastoise));
+    window.addEventListener(`load`, set_button_att(blastoise));
 }
 /*
 Cookies.set(`enemy_chosen`, blastoise);
@@ -91,4 +94,8 @@ let player_display = document.querySelector(`#chosen_player_pokemon`);
 player_display.insertAdjacentHTML(`afterbegin`, `<h1>You have spotted a ${enemies[`name`]}!</h1>
 <h1>Engaging with ${a[`name`]}!!</h1>
 <img src = '${a[`image_url`]}'  alt = "pokemon">`);
+}
+
+function set_button_att (a) {
+    document.getElementById(`gotta_catch_em_all`).insertAdjacentHTML(`afterbegin`, `<button id = 'attack_1'>${a[`Att`][0]}</button> <button id = 'attack_2'>${a[`Att`][1]}</button> <button id = 'attack_3'>${a[`Att`][2]}</button>`);
 }
