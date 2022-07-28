@@ -12,6 +12,7 @@ let raticate = {
     name: `raticate`,
     image_url: `https://projectpokemon.org/images/normal-sprite/raticate-f.gif`,
     HP: 120,
+    Current_HP: 120,
     Att: [`Quick Attack`, `Tackle`, `Tail Whip`],  
 }
 
@@ -19,6 +20,7 @@ let magikarp = {
     name: `magikarp`,
     image_url: `https://projectpokemon.org/images/shiny-sprite/magikarp-f.gif`,
     HP: 60,
+    Current_HP: 60,
     Att: [`Struggle`, `Frustration`, `Return`],  
 }
 
@@ -26,6 +28,7 @@ let blastoise = {
     name: `blastoise`,
     image_url: `https://projectpokemon.org/images/normal-sprite/blastoise-mega.gif`,
     HP: 200,
+    Current_HP: 200,
     Att: [`Hydro Pump`, `Skull Bash`, `Hydro Cannon`],  
 }
 
@@ -134,17 +137,28 @@ let battle_box_3 = document.getElementById(`attack_3`);
 battle_box_3.addEventListener(`click`, tail_whip);
 
 
+
 // the following 3 function will be the damage calculation.  i had the battle log wipe display so it displays it every time
 // it is clicked instead
 function quick_attack() {
-    let temp_boss_hp = Cookies.get(`computer_hp`);
-    temp_boss_hp -= 3; // attack 1 damage value
+
+    let computer_hp_json = JSON.stringify(enemies);
+    Cookies.set(`computer_hp`, computer_hp_json[`current_HP`]);
+    let temp_computer_hp = 
+    // let computer_hp = JSON.stringify(``);
+    // computer_hp[`HP`] -= 3;
+
+    // temp_boss_hp -= 3; // attack 1 damage value
+    // let computer_hp_json = JSON.stringify(`computer_hp`);
+    Cookies.set(`computer_hp`, computer_hp_json);
+
     let my_temp_hp = Cookies.get(`my_hp`);
+    let my_temp_hp_json = JSON.stringify(`my_temp_hp`);
     my_temp_hp -= 7; // value of muk's damage, set it to one default value for now
-    Cookies.set(`computer_hp`, temp_boss_hp);
+    // Cookies.set(`computer_hp`, temp_boss_hp);
     Cookies.set(`my_hp`, my_temp_hp)
    
-    if (temp_boss_hp > 0 && my_temp_hp > 0) {
+    /*if (temp_boss_hp > 0 && my_temp_hp > 0) {
         let battle_log_display = document.querySelector(`#battle_log`)
         battle_log_display[`innerHTML`] = ``;
     battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(`computer_hp`)}
@@ -154,8 +168,8 @@ function quick_attack() {
         document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Victory, You won!!`;
        } else if (my_temp_hp < 0) {
         document.getElementById(`gotta_catch_em_all`)[`innerHTML`] = `Go buy some Master Ball, you need it`;
-       }
-}
+       } */
+} 
 
 function tackle() {
     let temp_boss_hp = Cookies.get(`computer_hp`);
@@ -200,4 +214,4 @@ battle_log_display.insertAdjacentHTML(`afterbegin`, `<h1>Boss hp: ${Cookies.get(
 
 
 /* the background music is from fan made chrono trigger, i figure games needs music but chrome disabled autoplay
- so now it is up to the player to click on the the music that suits them*/
+ so now it is up to the player to click on the the music that suits them */
